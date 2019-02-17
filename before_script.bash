@@ -4,7 +4,51 @@ export $(cat /etc/*release | grep DISTRIB_CODENAME)
 
 sudo apt-get update
 
-sudo apt-get install -y software-properties-common
+sudo apt-get install -y wget software-properties-common
+
+if [[ "$DISTRIB_CODENAME" = "trusty" ]]; then
+cat <<EOF > /etc/apt/sources.list.d/llvm.list
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-7 main
+deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-8 main
+EOF
+fi
+
+if [[ "$DISTRIB_CODENAME" = "xenial" ]]; then
+cat <<EOF > /etc/apt/sources.list.d/llvm.list
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.4 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.5 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.6 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.7 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-7 main
+deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main
+EOF
+fi
+
+if [[ "$DISTRIB_CODENAME" = "bionic" ]]; then
+cat <<EOF > /etc/apt/sources.list.d/llvm.list
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.4 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.5 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.6 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.7 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-4.0 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-5.0 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-6.0 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
+deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main
+EOF
+fi
+
+wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
 
 # This updates libstdc++ to version 4.9 which makes this software compiles correctly in clang.
 # In Ubuntu Trusty this library will just works with g++-4.9 backport and so on.

@@ -43,6 +43,13 @@ matrix:
     compiler: clang
     env:
       - COMPILER_NAME=clang
+      - COMPILER_VERSION=3.7
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
       - COMPILER_VERSION=3.8
 
   - os: linux
@@ -51,6 +58,41 @@ matrix:
     env:
       - COMPILER_NAME=clang
       - COMPILER_VERSION=3.9
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=4.0
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=5.0
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=6.0
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=7
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=8
 
   - os: linux
     dist: trusty
@@ -148,6 +190,13 @@ matrix:
     compiler: clang
     env:
       - COMPILER_NAME=clang
+      - COMPILER_VERSION=3.7
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
       - COMPILER_VERSION=3.8
 
   - os: linux
@@ -156,6 +205,41 @@ matrix:
     env:
       - COMPILER_NAME=clang
       - COMPILER_VERSION=3.9
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=4.0
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=5.0
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=6.0
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=7
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=8
 
   - os: linux
     dist: xenial
