@@ -56,6 +56,11 @@ cat /etc/default/apport || true
 service --status-all || true
 initctl list || true
 
+mkdir -p $TRAVIS_BUILD_DIR/build/debug
+mkdir -p $TRAVIS_BUILD_DIR/build/release
+
+cd $TRAVIS_BUILD_DIR/build/debug
+
 # Debug build
 cmake -B$TRAVIS_BUILD_DIR/build/debug \
     -DCMAKE_BUILD_TYPE=debug \
@@ -65,9 +70,13 @@ cmake -B$TRAVIS_BUILD_DIR/build/debug \
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX $TRAVIS_BUILD_DIR
 
+cd $TRAVIS_BUILD_DIR/build/release
+
 # Release build
 cmake -B$TRAVIS_BUILD_DIR/build/release \
     -DCMAKE_BUILD_TYPE=Release \
     -DPISTACHE_SSL=true \
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX $TRAVIS_BUILD_DIR
+
+cd $TRAVIS_BUILD_DIR

@@ -226,7 +226,6 @@ before_script:
   - . before_script.bash
 
 script:
-  - cd $TRAVIS_BUILD_DIR
   # Debug build
   - make -C $TRAVIS_BUILD_DIR/build/debug -j $(nproc) all test
   # Release build
