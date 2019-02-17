@@ -22,7 +22,7 @@ find_program(CTEST_COVERAGE_COMMAND NAMES gcov)
 
 INCLUDE(Dart)
 
-add_custom_target(test_memcheck COMMAND ${CMAKE_CTEST_COMMAND}  --force-new-ctest-process --test-action memcheck)
+add_custom_target(memcheck COMMAND ${CMAKE_CTEST_COMMAND}  --force-new-ctest-process --test-action memcheck)
 add_custom_target(coverage COMMAND ${CMAKE_CTEST_COMMAND}  --force-new-ctest-process --test-action coverage)
 
 # CMAKE version less than 3.8 does not understand the CMAKE_CXX_FLAGS

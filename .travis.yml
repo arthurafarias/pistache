@@ -12,6 +12,27 @@ matrix:
     compiler: clang
     env:
       - COMPILER_NAME=clang
+      - COMPILER_VERSION=3.3
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=3.4
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=3.5
+
+  - os: linux
+    dist: trusty
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
       - COMPILER_VERSION=3.6
 
   - os: linux
@@ -57,6 +78,55 @@ matrix:
       - COMPILER_VERSION=4.8
 
   - os: linux
+    dist: trusty
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=4.9
+
+  - os: linux
+    dist: trusty
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=5
+
+  - os: linux
+    dist: trusty
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=6
+
+  - os: linux
+    dist: trusty
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=7
+
+  - os: linux
+    dist: trusty
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=8
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=3.3
+
+  - os: linux
+    dist: xenial
+    compiler: clang
+    env:
+      - COMPILER_NAME=clang
+      - COMPILER_VERSION=3.4
+
+  - os: linux
     dist: xenial
     compiler: clang
     env:
@@ -75,13 +145,6 @@ matrix:
     compiler: clang
     env:
       - COMPILER_NAME=clang
-      - COMPILER_VERSION=3.7
-
-  - os: linux
-    dist: xenial
-    compiler: clang
-    env:
-      - COMPILER_NAME=clang
       - COMPILER_VERSION=3.8
 
   - os: linux
@@ -89,21 +152,21 @@ matrix:
     compiler: clang
     env:
       - COMPILER_NAME=clang
-      - COMPILER_VERSION=4.0
+      - COMPILER_VERSION=3.9
 
   - os: linux
     dist: xenial
-    compiler: clang
+    compiler: gcc
     env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=5.0
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=4.4
 
   - os: linux
     dist: xenial
-    compiler: clang
+    compiler: gcc
     env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=6.0
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=4.6
 
   - os: linux
     dist: xenial
@@ -126,19 +189,43 @@ matrix:
       - COMPILER_NAME=gcc
       - COMPILER_VERSION=4.9
 
+  - os: linux
+    dist: xenial
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=5
+
+  - os: linux
+    dist: xenial
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=6
+
+  - os: linux
+    dist: xenial
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=7
+
+  - os: linux
+    dist: xenial
+    compiler: gcc
+    env:
+      - COMPILER_NAME=gcc
+      - COMPILER_VERSION=8
+
 before_script:
   # Bootraping environment and required packages
-  - . bootstrap-env.bash
-  - ./bootstrap.bash
+  - . bootstrap.bash
 
 script:
   # Debug build
-  - cd build/debug
-  - make -j $(nproc) all test ARGS="-V"
-
+  - make -C build/debug -j $(nproc) all test
   # Release build
-  - cd ../build/release
-  - make -j $(nproc)
+  - make -C build/release -j $(nproc) all
 
 after_failure:
   - ls -lta /var/crash
