@@ -36,7 +36,6 @@ fi
 
 export CC=$C_COMPILER_BIN
 export CXX=$CPP_COMPILER_BIN
-export PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 sudo apt-get update
 sudo apt-get install -y coreutils apparmor-profiles libssl-dev libcurl4-openssl-dev gdb valgrind lcov python-pip python3-pip git $C_COMPILER_PACKAGE $CPP_COMPILER_PACKAGE $CPP_STDLIB_PACKAGE
@@ -58,17 +57,17 @@ service --status-all || true
 initctl list || true
 
 # Debug build
-cmake -Bbuild/debug \
+cmake -B$TRAVIS_BUILD_DIR/build/debug \
     -DCMAKE_BUILD_TYPE=debug \
     -DPISTACHE_BUILD_EXAMPLES=true \
     -DPISTACHE_BUILD_TESTS=true \
     -DPISTACHE_SSL=true \
     -DCMAKE_C_COMPILER=$CC \
-    -DCMAKE_CXX_COMPILER=$CXX $PROJECT_DIR
+    -DCMAKE_CXX_COMPILER=$CXX $TRAVIS_BUILD_DIR
 
 # Release build
-cmake -Bbuild/release \
+cmake -B$TRAVIS_BUILD_DIR/build/release \
     -DCMAKE_BUILD_TYPE=Release \
     -DPISTACHE_SSL=true \
     -DCMAKE_C_COMPILER=$CC \
-    -DCMAKE_CXX_COMPILER=$CXX $PROJECT_DIR
+    -DCMAKE_CXX_COMPILER=$CXX $TRAVIS_BUILD_DIR

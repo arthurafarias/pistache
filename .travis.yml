@@ -5,6 +5,9 @@ branches:
     - master
 
 matrix:
+  allow_failures:
+    - env: COMPILER_NAME=clang COMPILER_VERSION=
+
   include:
 
   - os: linux
@@ -219,13 +222,15 @@ matrix:
 
 before_script:
   # Bootraping environment and required packages
-  - . bootstrap.bash
+  - cd $TRAVIS_BUILD_DIR
+  - . before_script.bash
 
 script:
+  - cd $TRAVIS_BUILD_DIR
   # Debug build
-  - make -C build/debug -j $(nproc) all test
+  - make -C $TRAVIS_BUILD_DIR/build/debug -j $(nproc) all test
   # Release build
-  - make -C build/release -j $(nproc) all
+  - make -C $TRAVIS_BUILD_DIR/build/release -j $(nproc) all
 
 after_failure:
   - ls -lta /var/crash
