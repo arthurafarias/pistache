@@ -6,7 +6,12 @@ branches:
 
 matrix:
   allow_failures:
-    - env: COMPILER_NAME=clang COMPILER_VERSION=
+    - env: COMPILER_NAME=clang COMPILER_VERSION=3.3
+    - env: COMPILER_NAME=clang COMPILER_VERSION=3.4
+    - env: COMPILER_NAME=clang COMPILER_VERSION=3.5
+    - env: COMPILER_NAME=gcc COMPILER_VERSION=4.4
+    - env: COMPILER_NAME=gcc COMPILER_VERSION=4.6
+    - env: COMPILER_NAME=gcc COMPILER_VERSION=4.8
 
   include:
 
@@ -307,13 +312,13 @@ matrix:
 before_script:
   # Bootraping environment and required packages
   - cd $TRAVIS_BUILD_DIR
-  - . before_script.bash
+  - . ./.travis/before_script.bash
 
 script:
   # Debug build
-  - make -C $TRAVIS_BUILD_DIR/build/debug -j $(nproc) all test
+  - make -C $TRAVIS_BUILD_DIR/build/debug -j $(nproc) all test VERBOSE=1 ARGS=-V
   # Release build
-  - make -C $TRAVIS_BUILD_DIR/build/release -j $(nproc) all
+  - make -C $TRAVIS_BUILD_DIR/build/release -j $(nproc) all  VERBOSE=1 ARGS=-V
 
 after_failure:
   - ls -lta /var/crash
@@ -322,9 +327,8 @@ after_failure:
     gdb -c "$COREFILE" -ex "thread apply all bt" -ex "set pagination 0" -batch;
     fi
 
-
 after_success:
-- cd ../build/debug
+- cd $TRAVIS_BUILD_DIR/build/debug
 - sudo su -c "echo 'if [ \"\$1\" = \"-v\" ] ; then $COV_TOOL --version ; else $COV_TOOL $COV_TOOL_ARGS \$@ ; fi' > /usr/local/bin/cov-tool" && sudo chmod +x /usr/local/bin/cov-tool
 - lcov --capture --gcov-tool cov-tool --directory . --output-file coverage.info
 - lcov --remove coverage.info '/usr/*' '*tests/*' '*googletest-release-1.7.0/*' --output-file coverage.info

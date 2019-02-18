@@ -4,7 +4,7 @@ export $(cat /etc/*release | grep DISTRIB_CODENAME)
 
 sudo apt-get update
 
-sudo apt-get install -y wget software-properties-common
+sudo apt-get install -y wget software-properties-common bc
 
 if [[ "$DISTRIB_CODENAME" = "trusty" ]]; then
 cat <<EOF > /etc/apt/sources.list.d/llvm.list
@@ -59,6 +59,11 @@ wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 sudo apt-get update
 sudo apt-get install -y g++-4.9
+
+CHECK_VERSION() {
+    RES=$(echo "$1 <= $2" | bc -l)
+    if [ RES == "1" ]; then return 1; else return 0; fi
+}
 
 if [[ "$COMPILER_NAME" = "clang" ]]; then
     export C_COMPILER_PACKAGE=clang-$COMPILER_VERSION
