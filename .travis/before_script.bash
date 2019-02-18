@@ -7,7 +7,7 @@ sudo apt-get update
 sudo apt-get install -y wget software-properties-common bc
 
 if [[ "$DISTRIB_CODENAME" = "trusty" ]]; then
-cat <<EOF > /etc/apt/sources.list.d/llvm.list
+sudo su -c 'cat <<EOF > /etc/apt/sources.list.d/llvm.list
 deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main
 deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.5 main
 deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main
@@ -17,11 +17,11 @@ deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main
 deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main
 deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-7 main
 deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-8 main
-EOF
+EOF'
 fi
 
 if [[ "$DISTRIB_CODENAME" = "xenial" ]]; then
-cat <<EOF > /etc/apt/sources.list.d/llvm.list
+sudo su -c 'cat <<EOF > /etc/apt/sources.list.d/llvm.list
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.4 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.5 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.6 main
@@ -31,11 +31,11 @@ deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-7 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main
-EOF
+EOF'
 fi
 
 if [[ "$DISTRIB_CODENAME" = "bionic" ]]; then
-cat <<EOF > /etc/apt/sources.list.d/llvm.list
+sudo su -c 'cat <<EOF > /etc/apt/sources.list.d/llvm.list
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.4 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.5 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.6 main
@@ -45,7 +45,7 @@ deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-5.0 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-6.0 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main
-EOF
+EOF'
 fi
 
 wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
@@ -57,15 +57,13 @@ wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key|sudo apt-key add -
 # as provided by ubuntu-toolchain-r/test are necessary to build this in ubuntu xenial and trusty
 # natively. Here we configure this backports repository and install g++-4.9.
 sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+
+# This will fix llvm 3.4 and 3.6
 sudo apt-get update
 sudo apt-get install -y g++-4.9
 
-CHECK_VERSION() {
-    RES=$(echo "$1 <= $2" | bc -l)
-    if [ RES == "1" ]; then return 1; else return 0; fi
-}
-
 if [[ "$COMPILER_NAME" = "clang" ]]; then
+    
     export C_COMPILER_PACKAGE=clang-$COMPILER_VERSION
     export C_COMPILER_BIN=clang-$COMPILER_VERSION
     export CPP_COMPILER_PACKAGE=
@@ -74,6 +72,12 @@ if [[ "$COMPILER_NAME" = "clang" ]]; then
     if [ ! -z "$(sudo apt-cache search llvm-$COMPILER_VERSION-tools)" ]; then export COV_TOOL_PACKAGE="$COV_TOOL_PACKAGE llvm-$COMPILER_VERSION-tools"; fi
     if [ ! -z "$(sudo apt-cache search llvm-$COMPILER_VERSION)" ]; then export COV_TOOL_PACKAGE="$COV_TOOL_PACKAGE llvm-$COMPILER_VERSION-tools"; fi
     export COV_TOOL_ARGS=gcov
+
+    if [[ $COMPILER_VERSION = 3.3 ]]; then
+        export C_COMPILER_BIN=clang
+        export CPP_COMPILER_BIN=clang++
+    fi
+
 elif [[ "$COMPILER_NAME" = "gcc" ]]; then
     export C_COMPILER_PACKAGE=gcc-$COMPILER_VERSION
     export C_COMPILER_BIN=gcc-$COMPILER_VERSION
@@ -87,7 +91,21 @@ export CC=$C_COMPILER_BIN
 export CXX=$CPP_COMPILER_BIN
 
 sudo apt-get update
-sudo apt-get install -y coreutils apparmor-profiles libssl-dev libcurl4-openssl-dev gdb valgrind lcov python-pip python3-pip git $C_COMPILER_PACKAGE $CPP_COMPILER_PACKAGE $CPP_STDLIB_PACKAGE
+
+sudo apt-get install -y \
+    coreutils \
+    apparmor-profiles \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    gdb \
+    valgrind \
+    lcov \
+    python-pip \
+    python3-pip \
+    git \
+    $C_COMPILER_PACKAGE \
+    $CPP_COMPILER_PACKAGE \
+    $CPP_STDLIB_PACKAGE
 
 sudo python -m pip install --upgrade pip
 sudo python3 -m pip install --upgrade pip

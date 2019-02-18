@@ -6,12 +6,7 @@ branches:
 
 matrix:
   allow_failures:
-    - env: COMPILER_NAME=clang COMPILER_VERSION=3.3
-    - env: COMPILER_NAME=clang COMPILER_VERSION=3.4
-    - env: COMPILER_NAME=clang COMPILER_VERSION=3.5
-    - env: COMPILER_NAME=gcc COMPILER_VERSION=4.4
-    - env: COMPILER_NAME=gcc COMPILER_VERSION=4.6
-    - env: COMPILER_NAME=gcc COMPILER_VERSION=4.8
+    - env: TESTGROUP=CANFAIL
 
   include:
 
@@ -21,6 +16,7 @@ matrix:
     env:
       - COMPILER_NAME=clang
       - COMPILER_VERSION=3.3
+      - TESTGROUP=CANFAIL
 
   - os: linux
     dist: trusty
