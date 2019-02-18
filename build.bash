@@ -1,5 +1,7 @@
 #!/bin/bash -ve
 
+rm -rf build
+
 if [ ! -x $COMPILER_NAME ]; then export COMPILER_NAME=gcc; fi
 if [ ! -x $COMPILER_VERSION ]; then export COMPILER_VERSION=8; fi
 

@@ -4,7 +4,9 @@ export $(cat /etc/*release | grep DISTRIB_CODENAME)
 
 sudo apt-get update
 
-sudo apt-get install -y wget software-properties-common bc
+sudo apt-get install -y wget software-properties-common bc git
+
+git submodule update --init --recursive
 
 if [[ "$DISTRIB_CODENAME" = "trusty" ]]; then
 sudo su -c 'cat <<EOF > /etc/apt/sources.list.d/llvm.list
@@ -93,7 +95,6 @@ sudo apt-get install -y \
     lcov \
     python-pip \
     python3-pip \
-    git \
     $C_COMPILER_PACKAGE \
     $CPP_COMPILER_PACKAGE \
     $CPP_STDLIB_PACKAGE
