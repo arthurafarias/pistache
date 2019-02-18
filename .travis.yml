@@ -11,13 +11,13 @@ matrix:
 
   include:
 
-  - os: linux
-    dist: trusty
-    compiler: clang
-    env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=3.3
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: trusty
+  #   compiler: clang
+  #   env:
+  #     - COMPILER_NAME=clang
+  #     - COMPILER_VERSION=3.3
+  #     - TESTGROUP=CANFAIL
 
   - os: linux
     dist: trusty
@@ -98,37 +98,37 @@ matrix:
       - COMPILER_NAME=clang
       - COMPILER_VERSION=8
 
-  - os: linux
-    dist: trusty
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.4
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: trusty
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.4
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: trusty
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.6
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: trusty
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.6
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: trusty
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.7
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: trusty
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.7
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: trusty
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.8
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: trusty
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.8
+  #     - TESTGROUP=CANFAIL
 
   - os: linux
     dist: trusty
@@ -165,43 +165,43 @@ matrix:
       - COMPILER_NAME=gcc
       - COMPILER_VERSION=8
 
-  - os: linux
-    dist: xenial
-    compiler: clang
-    env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=3.3
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: xenial
+  #   compiler: clang
+  #   env:
+  #     - COMPILER_NAME=clang
+  #     - COMPILER_VERSION=3.3
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: xenial
-    compiler: clang
-    env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=3.4
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: xenial
+  #   compiler: clang
+  #   env:
+  #     - COMPILER_NAME=clang
+  #     - COMPILER_VERSION=3.4
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: xenial
-    compiler: clang
-    env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=3.5
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: xenial
+  #   compiler: clang
+  #   env:
+  #     - COMPILER_NAME=clang
+  #     - COMPILER_VERSION=3.5
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: xenial
-    compiler: clang
-    env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=3.6
+  # - os: linux
+  #   dist: xenial
+  #   compiler: clang
+  #   env:
+  #     - COMPILER_NAME=clang
+  #     - COMPILER_VERSION=3.6
 
-  - os: linux
-    dist: xenial
-    compiler: clang
-    env:
-      - COMPILER_NAME=clang
-      - COMPILER_VERSION=3.7
+  # - os: linux
+  #   dist: xenial
+  #   compiler: clang
+  #   env:
+  #     - COMPILER_NAME=clang
+  #     - COMPILER_VERSION=3.7
 
   - os: linux
     dist: xenial
@@ -252,37 +252,37 @@ matrix:
       - COMPILER_NAME=clang
       - COMPILER_VERSION=8
 
-  - os: linux
-    dist: xenial
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.4
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: xenial
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.4
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: xenial
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.6
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: xenial
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.6
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: xenial
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.7
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: xenial
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.7
+  #     - TESTGROUP=CANFAIL
 
-  - os: linux
-    dist: xenial
-    compiler: gcc
-    env:
-      - COMPILER_NAME=gcc
-      - COMPILER_VERSION=4.8
-      - TESTGROUP=CANFAIL
+  # - os: linux
+  #   dist: xenial
+  #   compiler: gcc
+  #   env:
+  #     - COMPILER_NAME=gcc
+  #     - COMPILER_VERSION=4.8
+  #     - TESTGROUP=CANFAIL
 
   - os: linux
     dist: xenial

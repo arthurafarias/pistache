@@ -22,10 +22,6 @@ fi
 
 if [[ "$DISTRIB_CODENAME" = "xenial" ]]; then
 sudo su -c 'cat <<EOF > /etc/apt/sources.list.d/llvm.list
-deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.4 main
-deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.5 main
-deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.6 main
-deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.7 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-4.0 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main
 deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main
@@ -36,11 +32,6 @@ fi
 
 if [[ "$DISTRIB_CODENAME" = "bionic" ]]; then
 sudo su -c 'cat <<EOF > /etc/apt/sources.list.d/llvm.list
-deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.4 main
-deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.5 main
-deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.6 main
-deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.7 main
-deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-4.0 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-5.0 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-6.0 main
 deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-7 main
