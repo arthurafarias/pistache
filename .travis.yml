@@ -19,14 +19,36 @@ jobs:
   include:
 
     - stage: build
+      os: linux
+      dist: trusty
+      compiler: clang
       script:
         - echo "build 01"
         - echo "build 02"
 
     - stage: build
+      os: linux
+      dist: trusty
+      compiler: gcc
       script:
-        - echo "build 11"
-        - echo "build 12"
+        - echo "build 01"
+        - echo "build 02"
+
+    - stage: build
+      os: linux
+      dist: xenial
+      compiler: clang
+      script:
+        - echo "build 01"
+        - echo "build 02"
+
+    - stage: build
+      os: linux
+      dist: xenial
+      compiler: gcc
+      script:
+        - echo "build 01"
+        - echo "build 02"
 
     - stage: test
     - script: echo "test 1"
