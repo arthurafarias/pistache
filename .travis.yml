@@ -1,59 +1,18 @@
-language: cpp
-compiler:
-  - clang
-  - gcc
-
-os:
-  - linux
-
-dists:
-  - trusty
-  - xenial
-
 stages:
   - name: build
   - name: test
-  - name: deploy
+  # - name: deploy
 
 jobs:
   include:
-
-    - stage: build
-      os: linux
-      dist: trusty
-      compiler: clang
+    -
+      name: Build Job
+      stage: build
       script:
-        - echo "build 01"
-        - echo "build 02"
+        - echo "Builded" > build
 
-    - stage: build
-      os: linux
-      dist: trusty
-      compiler: gcc
+    -
+      name: Test Job
+      stage: test
       script:
-        - echo "build 01"
-        - echo "build 02"
-
-    - stage: build
-      os: linux
-      dist: xenial
-      compiler: clang
-      script:
-        - echo "build 01"
-        - echo "build 02"
-
-    - stage: build
-      os: linux
-      dist: xenial
-      compiler: gcc
-      script:
-        - echo "build 01"
-        - echo "build 02"
-
-    - stage: test
-    - script: echo "test 1"
-    - script: echo "test 2"
-
-    - stage: deploy
-    - script: echo "build 1"
-    - script: echo "build 2"
+        - if [ "$(cat ./build)" = "Builded" ]; then echo "Success" && exit 0; else echo "Failed" && exit 1; fi
