@@ -145,7 +145,7 @@ if (PISTACHE_BUILD_TESTS)
     if (GTEST_FOUND)
         include_directories(${GTEST_INCLUDE_DIRS})
     else()
-        ADD_SUBDIRECTORY (third-party)
+        ADD_SUBDIRECTORY (third-party/googletest)
         include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
     endif()
 
