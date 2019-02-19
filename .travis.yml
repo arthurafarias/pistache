@@ -1,61 +1,31 @@
 language: cpp
+compiler:
+  - clang
+  - gcc
+
+os:
+  - linux
+
+dists:
+  - trusty
+  - xenial
 
 stages:
-  - "format"
-  - "build"
-  - "test"
-  - "coverage"
-  - "memcheck"
-  - "build-release"
-
-format: &format
-  stage: format
-  env:
-    - CHECK=format
-  script:
-    - echo $CHECK
-
-build: &build
-  stage: build
-  env:
-    - CHECK=build
-  script:
-    - echo $CHECK
-
-test: &test
-  stage: test
-  env:
-    - CHECK=test
-  script:
-    - echo $CHECK
-
-coverage: &coverage
-  stage: coverage
-  env:
-    - CHECK=coverage
-  script:
-    - echo $CHECK
-
-memcheck: &memcheck
-  stage: memcheck
-  env:
-    - CHECK=memcheck
-  script:
-    - echo $CHECK
-
-build-release: &build-release
-  stage: build-release
-  env:
-    - CHECK=build-release
-  script:
-    - echo $CHECK
+  - name: build
+  - name: test
+  - name: deploy
 
 jobs:
   include:
-    - <<:
-      - *format
-      - *build
-      - *test
-      - *coverage
-      - *memcheck
-      - *build-release
+    
+    - stage: build
+    - script: echo "build 1"
+    - script: echo "build 2"
+
+    - stage: test
+    - script: echo "test 1"
+    - script: echo "test 2"
+
+    - stage: deploy
+    - script: echo "build 1"
+    - script: echo "build 2"
