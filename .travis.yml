@@ -1,5 +1,12 @@
 language: cpp
 
+stages:
+  - "Format"
+  - "Build"
+  - "Test"
+  - "Coverage"
+  - "Memcheck"
+
 dist: trusty
 sudo: true
 
@@ -103,43 +110,72 @@ install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
   - mkdir -p ${DEPS_DIR} && cd ${DEPS_DIR}
 
-before_script:
-  - export CXX=${COMPILER}
-  - cd ${TRAVIS_BUILD_DIR}
+format:
+  stage: Format
+  script:
+    - clang-format -i -style=Mozilla $(find ${PROJECT_SOURCE_DIR} -type d -name googletest* -prune -o -print | grep -E '.*\.(h|hpp|cc|cpp|cxx)$')
 
-  # Enable core dumps
-  - ulimit -c
-  - ulimit -a -S
-  - ulimit -a -H
+build:
+  stage: Build
 
-  # Print debug system information
-  - cat /proc/sys/kernel/core_pattern
-  - cat /etc/default/apport
-  - service --status-all || true
-  - initctl list || true
+  before_script:
+    - export CXX=${COMPILER}
+    - cd ${TRAVIS_BUILD_DIR}
 
-  # Debug build
-  - cmake -H.
-    -BBuild-Debug
-    -DCMAKE_BUILD_TYPE=Debug
-    -DPISTACHE_BUILD_EXAMPLES=true
-    -DPISTACHE_BUILD_TESTS=true
-    -DPISTACHE_SSL=true
+    # Enable core dumps
+    - ulimit -c
+    - ulimit -a -S
+    - ulimit -a -H
 
-  # Release build
-  - cmake -H.
-    -BBuild-Release
-    -DCMAKE_BUILD_TYPE=Release
-    -DPISTACHE_SSL=true
+    # Print debug system information
+    - cat /proc/sys/kernel/core_pattern
+    - cat /etc/default/apport
+    - service --status-all || true
+    - initctl list || true
 
-script:
-  # Debug build
-  - cd Build-Debug
-  - make -j 2 all test ARGS="-V"
+    # Debug build
+    - cmake -H.
+      -BBuild-Debug
+      -DCMAKE_BUILD_TYPE=Debug
+      -DPISTACHE_BUILD_EXAMPLES=true
+      -DPISTACHE_BUILD_TESTS=true
+      -DPISTACHE_SSL=true
 
-  # Release build
-  - cd ../Build-Release
-  - make -j 2
+    # Release build
+    - cmake -H.
+      -BBuild-Release
+      -DCMAKE_BUILD_TYPE=Release
+      -DPISTACHE_SSL=true
+      
+  script:
+    # Debug build
+    - cd Build-Debug
+    - make -j 4 all VERBOSE=1
+
+test:
+  stage: Test
+  script:
+    - cd ../Build-Debug
+    - make test VERBOSE=1 ARGS="-V"
+
+coverage:
+  stage: Coverage
+  script:
+    - cd ../Build-Debug
+    - make coverage VERBOSE=1 ARGS="-V"
+
+memcheck:
+  stage: Memcheck
+  script:
+    - cd ../Build-Debug
+    - make memcheck VERBOSE=1 ARGS="-V"
+
+release:
+  stage: Release
+  script:
+    # Release build
+    - cd ../Build-Release
+    - make -j 2 all VERBOSE=1 VERBOSE=1
 
 after_failure:
   - ls -lta /var/crash
