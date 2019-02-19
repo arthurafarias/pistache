@@ -17,10 +17,16 @@ stages:
 
 jobs:
   include:
-    
+
     - stage: build
-    - script: echo "build 1"
-    - script: echo "build 2"
+      script:
+        - echo "build 01"
+        - echo "build 02"
+
+    - stage: build
+      script:
+        - echo "build 11"
+        - echo "build 12"
 
     - stage: test
     - script: echo "test 1"
