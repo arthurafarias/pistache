@@ -306,3 +306,21 @@ TEST(http_server_test, server_with_static_file)
 
     ASSERT_EQ(data, resultData);
 }
+
+TEST(http_server_test, server_exception_no_handler)
+{
+    const Pistache::Address address("localhost", Pistache::Port(0));
+
+    Http::Endpoint server(address);
+    auto flags = Tcp::Options::InstallSignalHandler | Tcp::Options::ReuseAddr;
+    auto server_opts = Http::Endpoint::options().flags(flags);
+    server.init(server_opts);
+    try {
+
+        server.serveThreaded();
+        server.shutdown();
+
+    } catch (std::exception& e) {
+        ASSERT_TRUE(strcmp(e.what(), "Must call setHandler() prior to serve()") == 0);
+    }
+}
